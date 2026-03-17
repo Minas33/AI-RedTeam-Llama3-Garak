@@ -1,74 +1,39 @@
-# AI Prompt Injection Attack on Llama3 (Base64 Encoding)
+# AI Prompt Injection Attack Lab on Llama3 (Base64 Encoding)
 
 ## Overview
+This project documents an AI red team lab focused on Base64-encoded prompt injection testing against a locally hosted Llama3 model.
 
-This project demonstrates an AI red team attack using Base64 encoding to bypass content filters in a locally hosted Llama3 model.
-
-The attack was executed using the Garak vulnerability scanner in a Kali Linux environment.
+The work was performed in a Kali Linux virtual machine using Ollama and Garak-related setup steps. The project also captures practical issues encountered during tool execution inside a constrained VM environment.
 
 ---
 
 ## Attack Type
-
 **Encoding-based Prompt Injection (Base64)**
 
-Attack used:
-encoding.InjectBase64
+Target technique:
+`encoding.InjectBase64`
 
 ---
 
 ## How the Attack Works
+Base64 encoding can hide instructions inside encoded text.
 
-Base64 encoding hides malicious instructions inside encoded text.
-
-AI models may decode and execute the hidden instructions, bypassing safety filters.
+An AI system may decode or process the hidden content in ways that can weaken safety controls or bypass simple filters.
 
 Example:
-
-* Normal prompt → blocked
-* Base64 encoded prompt → allowed
+- Normal prompt → may be blocked
+- Base64-encoded prompt → may pass basic filtering
 
 ---
 
 ## Lab Environment
-
-* Kali Linux (VirtualBox)
-* Ollama (Local Llama3 model)
-* Garak AI vulnerability scanner
+- Kali Linux (VirtualBox)
+- Ollama (local Llama3 model)
+- Python virtual environment
+- Garak setup and execution attempt
 
 ---
 
 ## Command Used
-
-```
+```bash
 python3 -m garak --target_type ollama --target_name llama3 --probes encoding.InjectBase64 --generations 1
-```
-
----
-
-## Results
-
-Below is proof of execution:
-
-![Garak Test Screenshot](screenshots/Screenshot 2026-03-15 014819.png)
-
----
-
-## Security Impact
-
-This vulnerability shows that AI systems can be manipulated using encoding techniques.
-
-Potential risks:
-
-* Jailbreaking AI systems
-* Bypassing content filters
-* Data leakage
-* Unsafe outputs
-
----
-
-## Conclusion
-
-This project demonstrates a real-world AI attack technique used in AI red teaming.
-
-Understanding these vulnerabilities is critical for building secure AI systems.
